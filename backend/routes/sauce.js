@@ -3,6 +3,8 @@ const express = require('express');
 //On crée un ROUTER pour la route vers EXPRESS
 const router = express.Router();
 
+const Sauce = require('../models/Sauce');
+
 
 //On importe le Model crée (Sauce.js)
 const sauceCtrl = require('../controllers/sauce');
