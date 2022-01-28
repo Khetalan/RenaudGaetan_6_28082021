@@ -1,19 +1,13 @@
-//On importe EXPRESS du package
 const express = require('express');
-//on importe BORDY-PARSER 
 const bodyParser = require('body-parser');
-//on importe MONGOOSE (MongoDB)
 const mongoose = require('mongoose');
-
-//On importe le ROUTER
 const sauceRoutes = require('./routes/sauce');
-//On importe la route pour les Utilisateur
 const userRoutes = require('./routes/user');
-
-//
 const path = require('path');
+const helmet = require("helmet");
+require("dotenv").config();
 
-mongoose.connect('mongodb+srv://arseal1:xilmor@cluster0.vcssc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(process.env.secretDB,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -30,6 +24,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(bodyParser.json());
 
 app.use('/api/sauces', sauceRoutes);
